@@ -1,12 +1,15 @@
 import axios from 'axios';
-import {AsyncStorage} from 'react-native';
+import store from '../store';
 
 const api = axios.create({
   baseURL: process.env.API_URL || 'http://10.0.2.2:3333',
+  headers: {
+    Accept: 'application/json',
+  },
 });
 
-api.interceptors.request.use(async (config) => {
-  const token = await AsyncStorage.getItem('@user:token');
+api.interceptors.request.use((config) => {
+  const {token} = store.getState().auth;
   const newConfig = config;
 
   if (token) {

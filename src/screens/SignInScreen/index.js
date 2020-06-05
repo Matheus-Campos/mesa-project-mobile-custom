@@ -1,14 +1,20 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {View, Text, TextInput, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import PropTypes from 'prop-types';
 
 import {Creators as AuthActions} from '../../store/ducks/auth';
 
-const SignInScreen = ({signInRequest}) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const SignInScreen = ({signInRequest, loading, errorMsg}) => {
+  const [email, setEmail] = useState('marli@test.com');
+  const [password, setPassword] = useState('12345678');
 
   const signIn = () => {
     signInRequest({email, password});
@@ -17,6 +23,7 @@ const SignInScreen = ({signInRequest}) => {
   return (
     <View>
       <Text>Hello world!</Text>
+      {errorMsg && <Text>{errorMsg}</Text>}
       <TextInput
         autoCorrect={false}
         autoCapitalize="none"
@@ -38,7 +45,7 @@ const SignInScreen = ({signInRequest}) => {
       />
       <TouchableOpacity onPress={signIn}>
         <View style={{backgroundColor: 'blue'}}>
-          <Text>ENTRAR</Text>
+          {loading ? <ActivityIndicator /> : <Text>ENTRAR</Text>}
         </View>
       </TouchableOpacity>
     </View>
@@ -47,9 +54,16 @@ const SignInScreen = ({signInRequest}) => {
 
 SignInScreen.propTypes = {
   signInRequest: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  errorMsg: PropTypes.string,
 };
+
+const mapStateToProps = (state) => ({
+  loading: state.auth.loading,
+  errorMsg: state.auth.errorMsg,
+});
 
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(AuthActions, dispatch);
 
-export default connect(null, mapDispatchToProps)(SignInScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SignInScreen);
