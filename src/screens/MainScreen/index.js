@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {View, TouchableOpacity, Text, AsyncStorage} from 'react-native';
@@ -6,8 +6,13 @@ import {View, TouchableOpacity, Text, AsyncStorage} from 'react-native';
 import * as navigation from '../../services/navigation';
 
 import {Creators as AuthActions} from '../../store/ducks/auth';
+import {Creators as LocationActions} from '../../store/ducks/location';
 
-const MainScreen = ({logout}) => {
+const MainScreen = ({getLocationsRequest, logout, locations}) => {
+  useEffect(() => {
+    getLocationsRequest();
+  }, [getLocationsRequest]);
+
   const exit = async () => {
     logout();
     await AsyncStorage.removeItem('@user:token');
@@ -19,11 +24,20 @@ const MainScreen = ({logout}) => {
       <TouchableOpacity onPress={exit}>
         <Text>SAIR</Text>
       </TouchableOpacity>
+      {locations.map((location) => (
+        <View key={location.id}>
+          <Text>{location.name}</Text>
+        </View>
+      ))}
     </View>
   );
 };
 
-const mapDispatchToProps = (dispatch) =>
-  bindActionCreators(AuthActions, dispatch);
+const mapStateToProps = (state) => ({
+  locations: state.location.locations,
+});
 
-export default connect(null, mapDispatchToProps)(MainScreen);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({...AuthActions, ...LocationActions}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
