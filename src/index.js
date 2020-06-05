@@ -7,8 +7,17 @@
  */
 import 'react-native-gesture-handler';
 import React from 'react';
-import Routes from './routes';
+import {Provider} from 'react-redux';
 
-const App = () => <Routes />;
+import './config/reactotron';
+
+import Routes from './routes';
+import store from './store';
+
+const App = () => (
+  <Provider store={store}>
+    <Routes />
+  </Provider>
+);
 
 export default App;

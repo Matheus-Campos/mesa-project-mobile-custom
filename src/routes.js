@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import PropTypes from 'prop-types';
@@ -7,7 +8,7 @@ import SignInScreen from './screens/SignInScreen';
 
 const Stack = createStackNavigator();
 
-export default function Routes({isSignedIn}) {
+function Routes({isSignedIn}) {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={isSignedIn ? 'Main' : 'SignIn'}>
@@ -24,3 +25,9 @@ Routes.propTypes = {
 Routes.defaultProps = {
   isSignedIn: false,
 };
+
+const mapStateToProps = (state) => ({
+  isSignedIn: !!state.user,
+});
+
+export default connect(mapStateToProps)(Routes);
