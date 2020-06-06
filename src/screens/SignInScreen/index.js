@@ -1,54 +1,80 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  ActivityIndicator,
-} from 'react-native';
+import {Platform, View, Text, ActivityIndicator} from 'react-native';
 import PropTypes from 'prop-types';
 
+import * as navigation from '../../services/navigation';
 import {Creators as AuthActions} from '../../store/ducks/auth';
+import {
+  Container,
+  Title,
+  Label,
+  TextField,
+  Button,
+  ButtonText,
+  SignUpText,
+  ErrorText,
+} from './styles';
 
 const SignInScreen = ({signInRequest, loading, errorMsg}) => {
-  const [email, setEmail] = useState('marli@test.com');
-  const [password, setPassword] = useState('12345678');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const passwordInputRef = useRef();
+
+  const goToSignUpScreen = () => {
+    navigation.navigate('SignUp');
+  };
 
   const signIn = () => {
     signInRequest({email, password});
   };
 
   return (
-    <View>
-      <Text>Hello world!</Text>
-      {errorMsg && <Text>{errorMsg}</Text>}
-      <TextInput
-        autoCorrect={false}
-        autoCapitalize="none"
-        keyboardType="email-address"
-        textContentType="emailAddress"
-        underlineColorAndroid="transparent"
-        value={email}
-        onChangeText={setEmail}
-        placeholder="Seu e-mail"
-      />
-      <TextInput
-        autoCorrect={false}
-        autoCapitalize="none"
-        underlineColorAndroid="transparent"
-        value={password}
-        onChangeText={setPassword}
-        placeholder="Sua senha"
-        secureTextEntry
-      />
-      <TouchableOpacity onPress={signIn}>
-        <View style={{backgroundColor: 'blue'}}>
-          {loading ? <ActivityIndicator /> : <Text>ENTRAR</Text>}
-        </View>
-      </TouchableOpacity>
-    </View>
+    <Container behavior={Platform.OS === 'ios' ? 'padding' : null}>
+      <View>
+        <Title>MESA</Title>
+        {errorMsg && <ErrorText>{errorMsg}</ErrorText>}
+
+        <Label>E-MAIL</Label>
+        <TextField
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoCorrect={false}
+          underlineColorAndroid="transparent"
+          value={email}
+          onChangeText={setEmail}
+          placeholder="exemplo@email.com"
+          autoFocus
+          returnKeyType="next"
+          onSubmitEditing={() => passwordInputRef.current.focus()}
+          blurOnSubmit={false}
+        />
+        <Label>SENHA</Label>
+        <TextField
+          ref={passwordInputRef}
+          autoCorrect={false}
+          autoCapitalize="none"
+          underlineColorAndroid="transparent"
+          value={password}
+          onChangeText={setPassword}
+          placeholder="sua senha favorita"
+          secureTextEntry
+          returnKeyType="done"
+          onSubmitEditing={signIn}
+        />
+        <Button onPress={signIn}>
+          {loading ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <ButtonText>ENTRAR</ButtonText>
+          )}
+        </Button>
+
+        <SignUpText onPress={goToSignUpScreen}>Cadastre-se aqui</SignUpText>
+      </View>
+    </Container>
   );
 };
 

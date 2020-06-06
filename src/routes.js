@@ -6,6 +6,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {navigationRef} from './services/navigation';
 
 import SignInScreen from './screens/SignInScreen';
+import SignUpScreen from './screens/SignUpScreen';
 import MainScreen from './screens/MainScreen';
 
 const Stack = createStackNavigator();
@@ -19,9 +20,24 @@ const Routes = ({auth}) => {
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator>
         {auth.isSignedIn ? (
-          <Stack.Screen name="Main" component={MainScreen} />
+          <Stack.Screen
+            name="Main"
+            component={MainScreen}
+            options={{headerShown: false}}
+          />
         ) : (
-          <Stack.Screen name="SignIn" component={SignInScreen} />
+          <>
+            <Stack.Screen
+              name="SignIn"
+              component={SignInScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="SignUp"
+              component={SignUpScreen}
+              options={{title: 'Cadastro'}}
+            />
+          </>
         )}
       </Stack.Navigator>
     </NavigationContainer>
