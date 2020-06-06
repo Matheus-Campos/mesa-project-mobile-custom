@@ -7,7 +7,7 @@ export function* updateUser({payload: user}) {
   try {
     const userId = yield select((state) => state.auth.user.id);
     const response = yield call(api.put, `/api/v1/users/${userId}`, user);
-    console.tron.log(response);
+  
     yield put(UserActions.updateUserSuccess(response.data));
   } catch (err) {
     const message = err.response

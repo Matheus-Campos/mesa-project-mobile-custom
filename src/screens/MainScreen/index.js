@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import Map from '../../components/Map';
 import LocationItem from '../../components/LocationItem';
 
-// import * as navigation from '../../services/navigation';
+import * as navigation from '../../services/navigation';
 
 import {Creators as LocationActions} from '../../store/ducks/location';
 
@@ -25,8 +25,7 @@ const MainScreen = ({getLocationsRequest, locations, loading}) => {
   }, [getLocationsRequest]);
 
   const goToLocationScreen = (locationId) => {
-    console.tron.log(locationId);
-    // navigation.navigate('Location', {locationId});
+    navigation.navigate('Location', {locationId});
   };
 
   const goToNewLocationScreen = () => {

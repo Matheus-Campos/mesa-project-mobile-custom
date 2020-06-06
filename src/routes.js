@@ -11,9 +11,22 @@ import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import MainScreen from './screens/MainScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import LocationScreen from './screens/LocationScreen';
 
-const Stack = createStackNavigator();
+const OuterStack = createStackNavigator();
+const InnerStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+const InnerStackRoot = () => (
+  <InnerStack.Navigator>
+    <InnerStack.Screen
+      name="Main"
+      component={MainScreen}
+      options={{headerShown: false}}
+    />
+    <InnerStack.Screen name="Location" component={LocationScreen} />
+  </InnerStack.Navigator>
+);
 
 const Tabs = () => (
   <Tab.Navigator
@@ -24,7 +37,7 @@ const Tabs = () => (
     }}>
     <Tab.Screen
       name="Main"
-      component={MainScreen}
+      component={InnerStackRoot}
       options={{
         title: 'Locais',
         tabBarIcon: ({color}) => <Icon name="map" size={28} color={color} />,
@@ -48,28 +61,28 @@ const Routes = ({auth}) => {
 
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator>
+      <OuterStack.Navigator>
         {auth.isSignedIn ? (
-          <Stack.Screen
+          <OuterStack.Screen
             name="Main"
             component={Tabs}
             options={{headerShown: false}}
           />
         ) : (
           <>
-            <Stack.Screen
+            <OuterStack.Screen
               name="SignIn"
               component={SignInScreen}
               options={{headerShown: false}}
             />
-            <Stack.Screen
+            <OuterStack.Screen
               name="SignUp"
               component={SignUpScreen}
               options={{title: 'Cadastro'}}
             />
           </>
         )}
-      </Stack.Navigator>
+      </OuterStack.Navigator>
     </NavigationContainer>
   );
 };
