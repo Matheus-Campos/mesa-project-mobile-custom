@@ -1,29 +1,56 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {View, TouchableOpacity, Text} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 
-import {Creators as AuthActions} from '../../store/ducks/auth';
+import LocationItem from '../../components/LocationItem';
+
+// import * as navigation from '../../services/navigation';
+
 import {Creators as LocationActions} from '../../store/ducks/location';
 
-const MainScreen = ({getLocationsRequest, logout, locations}) => {
+import {
+  Container,
+  Separator,
+  Button,
+  ButtonText,
+  CentralizedText,
+} from './styles';
+
+const MainScreen = ({getLocationsRequest, locations}) => {
   useEffect(() => {
     getLocationsRequest();
   }, [getLocationsRequest]);
 
-  const exit = () => logout();
+  const goToLocationScreen = (locationId) => {
+    console.tron.log(locationId);
+    // navigation.navigate('Location', {locationId});
+  };
 
   return (
-    <View>
-      <TouchableOpacity onPress={exit}>
-        <Text>SAIR</Text>
-      </TouchableOpacity>
-      {locations.map((location) => (
-        <View key={location.id}>
-          <Text>{location.name}</Text>
-        </View>
-      ))}
-    </View>
+    <Container>
+      <FlatList
+        data={locations}
+        keyExtractor={(item) => String(item.id)}
+        contentContainerStyle={{paddingHorizontal: 15, paddingVertical: 10}}
+        renderItem={({item}) => (
+          <LocationItem
+            location={item}
+            onPress={() => goToLocationScreen(item.id)}
+          />
+        )}
+        ItemSeparatorComponent={() => <Separator />}
+        ListEmptyComponent={() => (
+          <View>
+            <CentralizedText>Ainda nao ha nada aqui...</CentralizedText>
+            <CentralizedText bold>Que tal cadastrar um local?</CentralizedText>
+            <Button onPress={() => {}}>
+              <ButtonText>CADASTRAR</ButtonText>
+            </Button>
+          </View>
+        )}
+      />
+    </Container>
   );
 };
 
@@ -32,6 +59,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({...AuthActions, ...LocationActions}, dispatch);
+  bindActionCreators(LocationActions, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

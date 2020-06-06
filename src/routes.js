@@ -21,7 +21,6 @@ const Tabs = () => (
       activeTintColor: '#000',
       inactiveTintColor: 'rgba(0, 0, 0, 0.5)',
       labelStyle: {fontSize: 14},
-      tabStyle: {}
     }}>
     <Tab.Screen
       name="Main"
