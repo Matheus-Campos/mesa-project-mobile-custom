@@ -104,9 +104,13 @@ const SignUpScreen = ({errorMsg, loading, signUpRequest}) => {
 };
 
 SignUpScreen.propTypes = {
-  errorMsg: PropTypes.string.isRequired,
+  errorMsg: PropTypes.string,
   loading: PropTypes.bool.isRequired,
   signUpRequest: PropTypes.func.isRequired,
+};
+
+SignUpScreen.defaultProps = {
+  errorMsg: null,
 };
 
 const mapStateToProps = (state) => ({

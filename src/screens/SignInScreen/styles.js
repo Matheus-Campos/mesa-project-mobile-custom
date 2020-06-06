@@ -32,7 +32,6 @@ export const TextField = styled.TextInput`
   padding-right: 15px;
   padding-left: 15px;
   border: 1px solid black;
-  border-radius: 5px;
   background: white;
 `;
 

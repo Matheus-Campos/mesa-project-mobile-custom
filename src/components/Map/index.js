@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import MapView, {Marker} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
+import PropTypes from 'prop-types';
 
 const Map = ({locations}) => {
   const [region, setRegion] = useState(null);
@@ -38,6 +39,17 @@ const Map = ({locations}) => {
       ))}
     </MapView>
   );
+};
+
+Map.propTypes = {
+  locations: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      lat: PropTypes.number,
+      lng: PropTypes.number,
+    }),
+  ),
 };
 
 export default Map;

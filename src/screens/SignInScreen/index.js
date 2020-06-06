@@ -16,6 +16,7 @@ import {
   SignUpText,
   ErrorText,
 } from './styles';
+import SignUpScreen from '../SignUpScreen';
 
 const SignInScreen = ({signInRequest, loading, errorMsg}) => {
   const [email, setEmail] = useState('');
@@ -59,7 +60,7 @@ const SignInScreen = ({signInRequest, loading, errorMsg}) => {
           underlineColorAndroid="transparent"
           value={password}
           onChangeText={setPassword}
-          placeholder="sua senha favorita"
+          placeholder="••••••"
           secureTextEntry
           returnKeyType="done"
           onSubmitEditing={signIn}
@@ -82,6 +83,10 @@ SignInScreen.propTypes = {
   signInRequest: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   errorMsg: PropTypes.string,
+};
+
+SignUpScreen.defaultProps = {
+  errorMsg: null,
 };
 
 const mapStateToProps = (state) => ({

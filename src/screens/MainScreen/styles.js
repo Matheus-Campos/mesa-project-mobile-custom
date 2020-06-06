@@ -14,6 +14,7 @@ export const Button = styled.TouchableOpacity`
   background: green;
   justify-content: center;
   align-items: center;
+  margin-bottom: 15px;
 `;
 
 export const ButtonText = styled.Text`
@@ -30,5 +31,9 @@ export const CentralizedText = styled.Text`
   line-height: 18px;
   margin-bottom: 5px;
 
-  ${(props) => props.bold && css`font-weight: bold;`}
+  ${(props) =>
+    props.bold &&
+    css`
+      font-weight: bold;
+    `}
 `;
