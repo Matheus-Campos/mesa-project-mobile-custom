@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {View, Text, FlatList} from 'react-native';
+import {View, FlatList} from 'react-native';
 
+import Map from '../../components/Map';
 import LocationItem from '../../components/LocationItem';
 
 // import * as navigation from '../../services/navigation';
@@ -29,9 +30,11 @@ const MainScreen = ({getLocationsRequest, locations}) => {
 
   return (
     <Container>
+      <Map locations={locations} />
       <FlatList
         data={locations}
         keyExtractor={(item) => String(item.id)}
+        style={{flex: 1}}
         contentContainerStyle={{paddingHorizontal: 15, paddingVertical: 10}}
         renderItem={({item}) => (
           <LocationItem
