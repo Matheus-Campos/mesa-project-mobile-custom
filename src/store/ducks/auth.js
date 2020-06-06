@@ -3,6 +3,8 @@ export const Types = {
   SIGN_IN_REQUEST: 'SIGN_IN_REQUEST',
   SIGN_IN_SUCCESS: 'SIGN_IN_SUCCESS',
   SIGN_IN_FAILURE: 'SIGN_IN_FAILURE',
+  SIGN_UP_REQUEST: 'SIGN_UP_REQUEST',
+  SIGN_UP_FAILURE: 'SIGN_UP_FAILURE',
   LOGOUT: 'LOGOUT',
 };
 
@@ -12,7 +14,8 @@ const INITIAL_STATE = {
   user: null,
   token: null,
   loading: false,
-  errorMsg: null,
+  signInErrorMsg: null,
+  signUpErrorMsg: null,
 };
 
 export default function Auth(state = INITIAL_STATE, action) {
@@ -20,9 +23,9 @@ export default function Auth(state = INITIAL_STATE, action) {
     case Types.INIT_CHECK_SUCCESS:
       return {...state, authChecked: true};
     case Types.SIGN_IN_REQUEST:
-      return {...state, loading: true, errorMsg: null};
+      return {...state, loading: true, signInErrorMsg: null};
     case Types.SIGN_IN_FAILURE:
-      return {...state, loading: false, errorMsg: action.payload};
+      return {...state, loading: false, signInErrorMsg: action.payload};
     case Types.SIGN_IN_SUCCESS:
       return {
         ...state,
@@ -31,6 +34,10 @@ export default function Auth(state = INITIAL_STATE, action) {
         isSignedIn: true,
         ...action.payload,
       };
+    case Types.SIGN_IN_REQUEST:
+      return {...state, loading: true, signUpErrorMsg: null};
+    case Types.SIGN_UP_FAILURE:
+      return {...state, loading: false, signUpErrorMsg: action.payload};
     case Types.LOGOUT:
       return {
         ...state,
@@ -63,6 +70,16 @@ export const Creators = {
 
   signInFailure: (message) => ({
     type: Types.SIGN_IN_FAILURE,
+    payload: message,
+  }),
+
+  signUpRequest: (user) => ({
+    type: Types.SIGN_UP_REQUEST,
+    payload: user,
+  }),
+
+  signUpFailure: (message) => ({
+    type: Types.SIGN_UP_FAILURE,
     payload: message,
   }),
 

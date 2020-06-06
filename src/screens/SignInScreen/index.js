@@ -1,7 +1,7 @@
 import React, {useState, useRef} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {Platform, View, Text, ActivityIndicator} from 'react-native';
+import {Platform, View, ActivityIndicator} from 'react-native';
 import PropTypes from 'prop-types';
 
 import * as navigation from '../../services/navigation';
@@ -86,7 +86,7 @@ SignInScreen.propTypes = {
 
 const mapStateToProps = (state) => ({
   loading: state.auth.loading,
-  errorMsg: state.auth.errorMsg,
+  errorMsg: state.auth.signInErrorMsg,
 });
 
 const mapDispatchToProps = (dispatch) =>

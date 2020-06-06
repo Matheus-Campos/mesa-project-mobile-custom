@@ -9,7 +9,6 @@ export function* getLocations() {
 
     yield put(LocationActions.getLocationsSuccess(response.data.locations));
   } catch (err) {
-    console.tron.log(err.response);
     yield put(LocationActions.getLocationsFailure(err.response.data.error));
   }
 }

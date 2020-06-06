@@ -8,7 +8,6 @@ import {Creators as AuthActions} from '../ducks/auth';
 
 export function* init() {
   const token = yield call(AsyncStorage.getItem, '@user:token');
-  console.tron.log(token);
 
   if (token) {
     const {uid} = jwtDecode(token);
@@ -21,7 +20,6 @@ export function* init() {
 
       yield put(AuthActions.signInSuccess({token, user: response.data}));
     } catch (err) {
-      console.tron.log(err);
       yield put(AuthActions.signInFailure(err.message));
     }
   }
@@ -45,11 +43,23 @@ export function* signIn({payload}) {
       }),
     );
   } catch (err) {
-    console.tron.log(err.response);
     const message = err.response
       ? err.response.data[0].message
       : 'Não foi possível se conectar ao servidor.';
     yield put(AuthActions.signInFailure(message));
+  }
+}
+
+export function* signUp({payload}) {
+  try {
+    yield call(api.post, '/sign_up', payload);
+
+    yield put(AuthActions.signInRequest(payload));
+  } catch (err) {
+    const message = err.response
+      ? err.response.data[0].message
+      : 'Não foi possível se conectar ao servidor.';
+    yield put(AuthActions.signUpFailure(message));
   }
 }
 
