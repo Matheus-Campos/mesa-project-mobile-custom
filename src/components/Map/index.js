@@ -25,7 +25,7 @@ const Map = ({locations}) => {
   }, []);
 
   return (
-    <MapView style={{flex: 1}} region={region} showsUserLocation loadingEnabled>
+    <MapView style={{height: 300}} region={region} showsUserLocation loadingEnabled>
       {locations.map((location) => (
         <Marker
           key={location.id}

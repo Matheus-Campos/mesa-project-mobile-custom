@@ -8,6 +8,7 @@ export const Container = styled.KeyboardAvoidingView`
 
 export const Content = styled.View`
   flex: 1;
+  max-height: 400px;
   background: whitesmoke;
   padding: 30px 20px;
   margin: 20px;
