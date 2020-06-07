@@ -42,7 +42,11 @@ export default function Location(state = INITIAL_STATE, action) {
     case Types.CREATE_LOCATION_REQUEST:
       return {...state, loading: true};
     case Types.CREATE_LOCATION_SUCCESS:
-      return {...state, loading: false, locations: [...state, action.payload]};
+      return {
+        ...state,
+        loading: false,
+        locations: [...state.locations, action.payload],
+      };
     case Types.CREATE_LOCATION_FAILURE:
       return {...state, loading: false};
     case Types.RATE_LOCATION_REQUEST:

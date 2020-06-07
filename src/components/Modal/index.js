@@ -56,8 +56,6 @@ const Modal = ({visible, onRequestClose, loading, createLocationRequest}) => {
       'S/N',
     );
 
-    console.tron.log(location);
-
     const data = {
       lat: location.lat,
       lng: location.lng,
@@ -114,6 +112,7 @@ const Modal = ({visible, onRequestClose, loading, createLocationRequest}) => {
             value={name}
             onChangeText={setName}
           />
+          <Label>ENDEREÇO DO LOCAL</Label>
           <GooglePlacesInput onPress={selectLocation} />
           <Row>
             <Button onPress={quitModal}>

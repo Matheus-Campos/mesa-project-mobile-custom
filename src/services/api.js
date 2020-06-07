@@ -2,7 +2,7 @@ import axios from 'axios';
 import store from '../store';
 
 const api = axios.create({
-  baseURL: process.env.API_URL || 'http://10.0.2.2:3333',
+  baseURL: process.env.API_URL || 'https://mesa-project.herokuapp.com',
   headers: {
     Accept: 'application/json',
   },

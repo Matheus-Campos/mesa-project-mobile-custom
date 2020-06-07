@@ -16,11 +16,13 @@ export const Content = styled.View`
 
 export const Button = styled.TouchableOpacity`
   height: 40px;
-  width: 160px;
   padding: 5px 10px;
   background: black;
   justify-content: center;
   align-items: center;
+  flex: 1;
+  max-width: 160px;
+  width: 100%;
 
   ${(props) =>
     props.color &&
@@ -59,7 +61,6 @@ export const Label = styled.Text`
 `;
 
 export const Row = styled.View`
-  flex-wrap: wrap;
   flex-direction: row;
   align-items: baseline;
   justify-content: space-between;

@@ -14,7 +14,41 @@ const GooglePlacesInput = ({onPress}) => {
         language: 'pt-BR',
       }}
       fetchDetails
+      enablePoweredByContainer={false}
       onPress={onPress}
+      styles={{
+        container: {
+          height: 40,
+          width: '100%',
+        },
+        textInputContainer: {
+          height: 40,
+          borderTopWidth: 0,
+          borderBottomWidth: 0,
+          backgroundColor: 'transparent',
+        },
+        textInput: {
+          height: 40,
+          backgroundColor: 'white',
+          borderWidth: 1,
+          borderColor: 'black',
+          borderRadius: 0,
+          marginBottom: 0,
+          marginLeft: 0,
+          marginRight: 0,
+          marginTop: 0,
+        },
+        listView: {
+          borderWidth: 1,
+          borderColor: 'black',
+          backgroundColor: 'white',
+          maxHeight: 200,
+        },
+        row: {
+          paddingLeft: 15,
+          paddingRight: 15,
+        }
+      }}
     />
   );
 };
