@@ -37,3 +37,9 @@ export const CentralizedText = styled.Text`
       font-weight: bold;
     `}
 `;
+
+export const Background = styled.View`
+  background: white;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+`;

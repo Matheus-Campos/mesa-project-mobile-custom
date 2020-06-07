@@ -62,6 +62,6 @@ export const Label = styled.Text`
 
 export const Row = styled.View`
   flex-direction: row;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
 `;

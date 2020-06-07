@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {View, FlatList} from 'react-native';
+import {FlatList} from 'react-native';
 import PropTypes from 'prop-types';
 
 import Map from '../../components/Map';
@@ -18,6 +18,7 @@ import {
   Button,
   ButtonText,
   CentralizedText,
+  Background,
 } from './styles';
 
 const MainScreen = ({getLocationsRequest, locations, loading}) => {
@@ -65,13 +66,13 @@ const MainScreen = ({getLocationsRequest, locations, loading}) => {
         }}
         ItemSeparatorComponent={() => <Separator />}
         ListEmptyComponent={() => (
-          <View>
-            <CentralizedText>Ainda nao ha nada aqui...</CentralizedText>
+          <Background>
+            <CentralizedText>Ainda não há nada aqui...</CentralizedText>
             <CentralizedText bold>Que tal cadastrar um local?</CentralizedText>
             <Button onPress={toggleModal}>
               <ButtonText>CADASTRAR</ButtonText>
             </Button>
-          </View>
+          </Background>
         )}
       />
 

@@ -123,6 +123,14 @@ const LocationScreen = ({
             <InfoLabel>Codigo postal: </InfoLabel>
             <InfoText>{location.zipcode}</InfoText>
           </Row>
+          <Row style={{marginTop: 15}}>
+            <InfoLabel>Adicionado por: </InfoLabel>
+            <InfoText>{location.user.username}</InfoText>
+          </Row>
+          <Row>
+            <InfoLabel>E-mail: </InfoLabel>
+            <InfoText>{location.user.email}</InfoText>
+          </Row>
         </InfoBackground>
         {isAbleToRate && (
           <InfoBackground>
