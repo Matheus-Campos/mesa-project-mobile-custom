@@ -82,6 +82,7 @@ const Modal = ({visible, onRequestClose, loading, createLocationRequest}) => {
       alert(
         'É necessário preencher todos os campos para cadastrar um novo local.',
       );
+      return;
     }
 
     createLocationRequest(
@@ -118,7 +119,7 @@ const Modal = ({visible, onRequestClose, loading, createLocationRequest}) => {
             <Button onPress={quitModal}>
               <ButtonText>CANCELAR</ButtonText>
             </Button>
-            <Button color="green" onPress={createLocation}>
+            <Button color="green" onPress={createLocation} disabled={loading}>
               {loading ? (
                 <ActivityIndicator color="#fff" />
               ) : (

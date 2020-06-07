@@ -20,7 +20,9 @@ export function* init() {
 
       yield put(AuthActions.signInSuccess({token, user: response.data}));
     } catch (err) {
-      yield put(AuthActions.signInFailure(err.message));
+      yield put(
+        AuthActions.signInFailure('Não foi possível se conectar ao servidor.'),
+      );
     }
   }
   yield put(AuthActions.initCheckSuccess());
@@ -43,9 +45,14 @@ export function* signIn({payload}) {
       }),
     );
   } catch (err) {
-    const message = err.response
-      ? err.response.data[0].message
-      : 'Não foi possível se conectar ao servidor.';
+    let message = 'Não foi possível se conectar ao servidor.';
+    if (err.response) {
+      if (err.response.status === 401) {
+        message = 'Não há um usuário com esse e-mail cadastrado.';
+      } else {
+        message = err.response.data[0].message;
+      }
+    }
     yield put(AuthActions.signInFailure(message));
   }
 }

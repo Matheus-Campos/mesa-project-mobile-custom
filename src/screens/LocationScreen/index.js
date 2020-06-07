@@ -143,7 +143,7 @@ const LocationScreen = ({
               onChangeText={setComment}
               placeholder="Sua avaliacao aqui"
             />
-            <Button onPress={sendRating}>
+            <Button onPress={sendRating} disabled={loading}>
               {loading ? (
                 <ActivityIndicator color="#fff" />
               ) : (

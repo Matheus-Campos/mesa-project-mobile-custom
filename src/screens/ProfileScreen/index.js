@@ -80,7 +80,7 @@ const ProfileScreen = ({
           secureTextEntry
           placeholder="••••••"
         />
-        <Button onPress={updateUser}>
+        <Button onPress={updateUser} disabled={loading}>
           {loading ? (
             <ActivityIndicator color="#fff" />
           ) : (
@@ -88,7 +88,7 @@ const ProfileScreen = ({
           )}
         </Button>
       </View>
-      <Button bgColor="red" onPress={logout}>
+      <Button bgColor="red" onPress={logout} disabled={loading}>
         <ButtonText>SAIR</ButtonText>
       </Button>
     </Container>

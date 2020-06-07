@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -31,4 +31,4 @@ LocationItem.propTypes = {
   onPress: PropTypes.func.isRequired,
 };
 
-export default LocationItem;
+export default memo(LocationItem);

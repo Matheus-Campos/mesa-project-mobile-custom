@@ -65,7 +65,7 @@ const SignInScreen = ({signInRequest, loading, errorMsg}) => {
           returnKeyType="done"
           onSubmitEditing={signIn}
         />
-        <Button onPress={signIn}>
+        <Button onPress={signIn} disabled={loading}>
           {loading ? (
             <ActivityIndicator color="#fff" />
           ) : (

@@ -58,7 +58,6 @@ export function* createLocation({payload, callback}) {
       callback();
     }
   } catch (err) {
-    console.tron.log(err);
     const message = err.response
       ? err.response.data.error
       : 'Não há conexão com o servidor.';

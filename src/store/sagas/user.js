@@ -7,12 +7,14 @@ export function* updateUser({payload: user}) {
   try {
     const userId = yield select((state) => state.auth.user.id);
     const response = yield call(api.put, `/api/v1/users/${userId}`, user);
-  
+
     yield put(UserActions.updateUserSuccess(response.data));
+    alert('Informações atualizadas com sucesso!');
   } catch (err) {
-    const message = err.response
-      ? err.response.data[0].message
-      : 'Nao ha conexao com o servidor';
+    const message =
+      err.response.data.error ||
+      err.response.data[0].message ||
+      'Não há conexão com o servidor';
     yield put(UserActions.updateUserFailure(message));
   }
 }

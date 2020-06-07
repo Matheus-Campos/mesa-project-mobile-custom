@@ -91,7 +91,7 @@ const SignUpScreen = ({errorMsg, loading, signUpRequest}) => {
           placeholder="confirmação da sua melhor senha"
         />
 
-        <Button onPress={signUp}>
+        <Button onPress={signUp} disabled={loading}>
           {loading ? (
             <ActivityIndicator color="#fff" />
           ) : (
