@@ -42,3 +42,27 @@ export function* rateLocation({payload}) {
     yield put(LocationActions.rateLocationFailure());
   }
 }
+
+export function* createLocation({payload, callback}) {
+  try {
+    const response = yield call(api.post, '/api/v1/locations', payload);
+    const user = yield select((state) => state.auth.user);
+
+    const location = {
+      ...response.data,
+      user,
+    };
+
+    yield put(LocationActions.createLocationSuccess(location));
+    if (callback) {
+      callback();
+    }
+  } catch (err) {
+    console.tron.log(err);
+    const message = err.response
+      ? err.response.data.error
+      : 'Não há conexão com o servidor.';
+    alert(message);
+    yield put(LocationActions.createLocationFailure());
+  }
+}

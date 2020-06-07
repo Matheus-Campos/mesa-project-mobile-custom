@@ -9,6 +9,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {Provider} from 'react-redux';
 
+import './config/geolocation';
 import './config/reactotron';
 
 import Routes from './routes';

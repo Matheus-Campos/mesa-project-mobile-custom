@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {View, FlatList} from 'react-native';
 import PropTypes from 'prop-types';
 
 import Map from '../../components/Map';
+import Modal from '../../components/Modal';
 import LocationItem from '../../components/LocationItem';
 
 import * as navigation from '../../services/navigation';
@@ -20,16 +21,18 @@ import {
 } from './styles';
 
 const MainScreen = ({getLocationsRequest, locations, loading}) => {
+  const [isModalVisible, setModalVisible] = useState(false);
+
   useEffect(() => {
     getLocationsRequest();
   }, [getLocationsRequest]);
 
-  const goToLocationScreen = (locationId) => {
-    navigation.navigate('Location', {locationId});
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
   };
 
-  const goToNewLocationScreen = () => {
-    console.tron.log('Novo local');
+  const goToLocationScreen = (locationId) => {
+    navigation.navigate('Location', {locationId});
   };
 
   return (
@@ -55,7 +58,7 @@ const MainScreen = ({getLocationsRequest, locations, loading}) => {
           }
 
           return (
-            <Button onPress={goToNewLocationScreen}>
+            <Button onPress={toggleModal}>
               <ButtonText>CADASTRAR LOCAL</ButtonText>
             </Button>
           );
@@ -65,12 +68,14 @@ const MainScreen = ({getLocationsRequest, locations, loading}) => {
           <View>
             <CentralizedText>Ainda nao ha nada aqui...</CentralizedText>
             <CentralizedText bold>Que tal cadastrar um local?</CentralizedText>
-            <Button onPress={goToNewLocationScreen}>
+            <Button onPress={toggleModal}>
               <ButtonText>CADASTRAR</ButtonText>
             </Button>
           </View>
         )}
       />
+
+      <Modal visible={isModalVisible} onRequestClose={toggleModal} />
     </Container>
   );
 };

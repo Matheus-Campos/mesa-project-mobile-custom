@@ -5,6 +5,9 @@ export const Types = {
   GET_LOCATION_REQUEST: 'GET_LOCATION_REQUEST',
   GET_LOCATION_SUCCESS: 'GET_LOCATION_SUCCESS',
   GET_LOCATION_FAILURE: 'GET_LOCATION_FAILURE',
+  CREATE_LOCATION_REQUEST: 'CREATE_LOCATION_REQUEST',
+  CREATE_LOCATION_SUCCESS: 'CREATE_LOCATION_SUCCESS',
+  CREATE_LOCATION_FAILURE: 'CREATE_LOCATION_FAILURE',
   RATE_LOCATION_REQUEST: 'RATE_LOCATION_REQUEST',
   RATE_LOCATION_SUCCESS: 'RATE_LOCATION_SUCCESS',
   RATE_LOCATION_FAILURE: 'RATE_LOCATION_FAILURE',
@@ -36,6 +39,12 @@ export default function Location(state = INITIAL_STATE, action) {
       return {...state, loading: false, selectedLocation: action.payload};
     case Types.GET_LOCATION_FAILURE:
       return {...state, loading: false, errorMsg: action.payload};
+    case Types.CREATE_LOCATION_REQUEST:
+      return {...state, loading: true};
+    case Types.CREATE_LOCATION_SUCCESS:
+      return {...state, loading: false, locations: [...state, action.payload]};
+    case Types.CREATE_LOCATION_FAILURE:
+      return {...state, loading: false};
     case Types.RATE_LOCATION_REQUEST:
       return {...state, loading: true};
     case Types.RATE_LOCATION_SUCCESS:
@@ -81,6 +90,22 @@ export const Creators = {
 
   getLocationFailure: (message) => ({
     type: Types.GET_LOCATION_FAILURE,
+    payload: message,
+  }),
+
+  createLocationRequest: (location, callback) => ({
+    type: Types.CREATE_LOCATION_REQUEST,
+    payload: location,
+    callback,
+  }),
+
+  createLocationSuccess: (response) => ({
+    type: Types.CREATE_LOCATION_SUCCESS,
+    payload: response,
+  }),
+
+  createLocationFailure: (message) => ({
+    type: Types.CREATE_LOCATION_FAILURE,
     payload: message,
   }),
 

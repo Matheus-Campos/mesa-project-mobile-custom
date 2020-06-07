@@ -6,7 +6,12 @@ import {Types as LocationTypes} from '../ducks/location';
 
 import {init, signIn, signUp, logout} from './auth';
 import {updateUser} from './user';
-import {getLocations, getLocation, rateLocation} from './location';
+import {
+  getLocations,
+  getLocation,
+  rateLocation,
+  createLocation,
+} from './location';
 
 export default function* rootSaga() {
   yield all([
@@ -17,6 +22,7 @@ export default function* rootSaga() {
     takeLatest(AuthTypes.LOGOUT, logout),
     takeLatest(LocationTypes.GET_LOCATIONS_REQUEST, getLocations),
     takeLatest(LocationTypes.GET_LOCATION_REQUEST, getLocation),
+    takeLatest(LocationTypes.CREATE_LOCATION_REQUEST, createLocation),
     takeLatest(LocationTypes.RATE_LOCATION_REQUEST, rateLocation),
   ]);
 }

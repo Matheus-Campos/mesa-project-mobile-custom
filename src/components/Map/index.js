@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import MapView, {Marker} from 'react-native-maps';
-import Geolocation from '@react-native-community/geolocation';
 import PropTypes from 'prop-types';
 
 const Map = ({locations}) => {
   const [region, setRegion] = useState(null);
 
   useEffect(() => {
-    Geolocation.getCurrentPosition(
+    navigator.geolocation.getCurrentPosition(
       ({coords: {latitude, longitude}}) => {
         setRegion({
           latitude,

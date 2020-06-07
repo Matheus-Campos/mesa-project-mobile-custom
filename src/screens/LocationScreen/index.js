@@ -31,13 +31,18 @@ const LocationScreen = ({
   getLocationRequest,
   rateLocationRequest,
   signedUser,
+  navigation,
 }) => {
   const {params} = useRoute();
 
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState('');
 
-  useEffect(() => console.tron.log(rating), [rating]);
+  useEffect(() => {
+    if (location) {
+      navigation.setOptions({title: location.name});
+    }
+  }, [location, navigation]);
 
   useEffect(() => {
     if (params.locationId) {
@@ -68,7 +73,7 @@ const LocationScreen = ({
   }
 
   return (
-    <Container>
+    <Container keyboardShouldPersistTaps="handled">
       <Content>
         <MapView
           style={{flex: 1}}
@@ -144,8 +149,12 @@ const LocationScreen = ({
             data={location.ratings}
             keyExtractor={(item) => String(item.id)}
             renderItem={({item}) => <RatingItem rating={item} />}
-            ItemSeparatorComponent={() => <Separator />}
             scrollEnabled={false}
+            ItemSeparatorComponent={() => <Separator />}
+            ListHeaderComponent={() => <InfoLabel>Avaliações</InfoLabel>}
+            ListEmptyComponent={() => (
+              <InfoText>Seja o primeiro a avaliar...</InfoText>
+            )}
           />
         </InfoBackground>
       </InfoContainer>
