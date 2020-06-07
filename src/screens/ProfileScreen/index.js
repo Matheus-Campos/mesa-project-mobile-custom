@@ -49,6 +49,7 @@ const ProfileScreen = ({
           value={username}
           onChangeText={setUsername}
           placeholder={user ? user.username : ''}
+          maxLength={60}
         />
         <Label>E-MAIL</Label>
         <TextField

@@ -48,6 +48,7 @@ const SignUpScreen = ({errorMsg, loading, signUpRequest}) => {
           blurOnSubmit={false}
           onSubmitEditing={() => emailInputRef.current.focus()}
           placeholder="José Maria"
+          maxLength={60}
         />
         <Label>E-MAIL</Label>
         <TextField

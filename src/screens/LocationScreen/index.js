@@ -142,6 +142,7 @@ const LocationScreen = ({
               value={comment}
               onChangeText={setComment}
               placeholder="Sua avaliacao aqui"
+              maxLength={500}
             />
             <Button onPress={sendRating} disabled={loading}>
               {loading ? (
